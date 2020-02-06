@@ -28,6 +28,7 @@ test:
     - pip
   commands:
     - python -m pip check
+    - python -m "from ruamel.yaml import YAML; YAML(type='jinja2')"
   imports:
     - ruamel.yaml.jinja2
 
