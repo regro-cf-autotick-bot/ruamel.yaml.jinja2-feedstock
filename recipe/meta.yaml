@@ -10,8 +10,10 @@ source:
   sha256: c8e1d4e6d638c519a548be754639cbfb06560f9f0a95922435bdb4cf64816801
 
 build:
-  number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 1
+  script: 
+    - {{ PYTHON }} -m pip install . -vv
+    - {{ PYTHON }} {{ RECIPE_DIR }}/rm_broken_file.py
   noarch: python
 
 requirements:
@@ -21,13 +23,14 @@ requirements:
     - setuptools
   run:
     - python
-    - ruamel.yaml
+    - ruamel.yaml >=0.15.10
 
 test:
   requires:
     - pip
   commands:
     - python -m pip check
+    - python -c "from ruamel.yaml import YAML; YAML(typ='jinja2')"
   imports:
     - ruamel.yaml.jinja2
 
